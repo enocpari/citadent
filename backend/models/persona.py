@@ -5,6 +5,7 @@ Contiene la clase abstracta Persona que serve como base para pacientes y dentist
 
 # Importación de módulos necesarios para abstracción
 from abc import ABC, abstractmethod
+from typing import Optional
 
 
 class Persona(ABC):
@@ -22,8 +23,11 @@ class Persona(ABC):
         contacto: Número de contacto (opcional)
     """
     
-    def __init__(self, id, nombre: str, apellido_paterno: str, 
-                 apellido_materno=None, edad=None, genero=None, contacto: int=None):
+    def __init__(self, id: int, nombre: str, apellido_paterno: str, 
+                 apellido_materno: Optional[str] = None, 
+                 edad: Optional[int] = None, 
+                 genero: Optional[str] = None, 
+                 contacto: Optional[str] = None):
         """
         Inicializa una instancia de Persona.
         
@@ -45,13 +49,11 @@ class Persona(ABC):
         self.contacto = contacto
     
     @abstractmethod
-    def __str__(self):
+    def __str__(self) -> str:
         """Método abstracto para representación en string"""
         pass
     
     @abstractmethod
-    def tipo(self):
+    def tipo(self) -> str:
         """Método abstracto que retorna el tipo de persona"""
         pass
-    
-    
