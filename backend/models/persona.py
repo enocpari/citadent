@@ -47,7 +47,7 @@ class Persona(ABC):
         self.edad = edad
         self.genero = genero
         self.contacto = contacto
-    
+    # que es el metodo abstracto.AI!
     @abstractmethod
     def __str__(self) -> str:
         """Método abstracto para representación en string"""
