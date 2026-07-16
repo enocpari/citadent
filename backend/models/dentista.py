@@ -24,7 +24,7 @@ class Dentista(Persona):
         """
         Inicializa una instancia de Dentista.
         
-        Args:
+        Args: 
             id: Identificador único del dentista
             nombre: Nombre de pila
             apellido_paterno: Apellido paterno
@@ -37,16 +37,7 @@ class Dentista(Persona):
         # Atributo propio de la clase Dentista
         self.especialidad = especialidad
     
-    def __str__(self):
-        """
-        Retorna una representación en string del dentista.
-        
-        Returns:
-            str: Información formateada del dentista
-        """
-        return (f"Dentista(id={self.id}, nombre:'{self.nombre}',"
-                f"apellido:'{self.apellido_paterno}', "
-                f"contacto: +591-{self.contacto}, especialidad:'{self.especialidad}')")
+
     
     def tipo(self):
         """

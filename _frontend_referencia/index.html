@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Clínica Dental Premium</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-tooth"></i>
+                <h2>DentalAI</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-target="dashboard">
+                    <i class="fa-solid fa-chart-pie"></i> Dashboard
+                </a>
+                <a href="#" class="nav-item" data-target="appointments">
+                    <i class="fa-regular fa-calendar-check"></i> Citas
+                </a>
+                <a href="#" class="nav-item" data-target="patients">
+                    <i class="fa-solid fa-users"></i> Pacientes
+                </a>
+                <a href="#" class="nav-item" data-target="doctors">
+                    <i class="fa-solid fa-user-doctor"></i> Doctores
+                </a>
+                <a href="#" class="nav-item" data-target="settings">
+                    <i class="fa-solid fa-gear"></i> Configuración
+                </a>
+            </nav>
+            <div class="user-profile">
+                <div class="avatar">
+                    <img src="https://ui-avatars.com/api/?name=Dr+Admin&background=0D8ABC&color=fff" alt="User">
+                </div>
+                <div class="user-info">
+                    <p class="name">Dr. Admin</p>
+                    <p class="role">Director Médico</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="global-search" placeholder="Buscar pacientes, citas...">
+                </div>
+                <div class="topbar-actions">
+                    <button class="icon-btn notification"><i class="fa-regular fa-bell"></i></button>
+                    <button class="btn btn-primary" onclick="openNewAppointmentModal()">
+                        <i class="fa-solid fa-plus"></i> Nueva Cita
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-area">
+
+                <!-- ====================== -->
+                <!-- SECCIÓN: DASHBOARD     -->
+                <!-- ====================== -->
+                <section id="dashboard" class="view-section active">
+                    <div class="header-animate">
+                        <h1>Resumen General</h1>
+                        <p class="subtitle">Bienvenido de vuelta. Aquí está el estado de la clínica hoy.</p>
+                    </div>
+
+                    <!-- KPI Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card glass slide-up" style="--delay: 0.1s">
+                            <div class="stat-icon blue"><i class="fa-solid fa-calendar-day"></i></div>
+                            <div class="stat-details">
+                                <h3>Citas Hoy</h3>
+                                <p class="value" id="count-hoy">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card glass slide-up" style="--delay: 0.2s">
+                            <div class="stat-icon orange"><i class="fa-solid fa-clock"></i></div>
+                            <div class="stat-details">
+                                <h3>Pendientes</h3>
+                                <p class="value" id="count-pendientes">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card glass slide-up" style="--delay: 0.3s">
+                            <div class="stat-icon green"><i class="fa-solid fa-check-double"></i></div>
+                            <div class="stat-details">
+                                <h3>Completadas</h3>
+                                <p class="value" id="count-completadas">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card glass slide-up" style="--delay: 0.4s">
+                            <div class="stat-icon red"><i class="fa-solid fa-xmark"></i></div>
+                            <div class="stat-details">
+                                <h3>Canceladas</h3>
+                                <p class="value" id="count-canceladas">0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kanban Board -->
+                    <div class="board-container slide-up" style="--delay: 0.5s">
+                        <div class="board-header">
+                            <h2>Gestor de Citas en Vivo</h2>
+                            <div class="board-filters">
+                                <button class="filter-btn active" data-filter="all">Todas</button>
+                                <button class="filter-btn" data-filter="today">Hoy</button>
+                                <button class="filter-btn" data-filter="tomorrow">Mañana</button>
+                            </div>
+                        </div>
+                        <div class="kanban-board">
+                            <div class="kanban-column">
+                                <div class="column-header">
+                                    <div class="dot orange"></div>
+                                    <h3>Pendientes</h3>
+                                    <span class="badge" id="badge-pending">0</span>
+                                </div>
+                                <div class="column-content" id="list-pending"></div>
+                            </div>
+                            <div class="kanban-column">
+                                <div class="column-header">
+                                    <div class="dot green"></div>
+                                    <h3>Completadas</h3>
+                                    <span class="badge" id="badge-completed">0</span>
+                                </div>
+                                <div class="column-content" id="list-completed"></div>
+                            </div>
+                            <div class="kanban-column">
+                                <div class="column-header">
+                                    <div class="dot red"></div>
+                                    <h3>Canceladas</h3>
+                                    <span class="badge" id="badge-cancelled">0</span>
+                                </div>
+                                <div class="column-content" id="list-cancelled"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ====================== -->
+                <!-- SECCIÓN: CITAS         -->
+                <!-- ====================== -->
+                <section id="appointments" class="view-section">
+                    <div class="section-header">
+                        <div>
+                            <h1>Gestión de Citas</h1>
+                            <p class="subtitle">Historial completo de todas las citas de la clínica.</p>
+                        </div>
+                        <button class="btn btn-primary" onclick="openNewAppointmentModal()">
+                            <i class="fa-solid fa-plus"></i> Nueva Cita
+                        </button>
+                    </div>
+                    <div class="table-filters glass"
+                        style="padding:16px 20px; margin-bottom:20px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                        <label style="font-size:0.85rem; font-weight:500; color:var(--text-muted);">Filtrar por
+                            estado:</label>
+                        <select id="appt-status-filter" onchange="filterAppointmentsTable()" class="filter-select">
+                            <option value="all">Todas</option>
+                            <option value="pending">Pendientes</option>
+                            <option value="completed">Completadas</option>
+                            <option value="cancelled">Canceladas</option>
+                        </select>
+                    </div>
+                    <div class="glass table-wrapper">
+                        <table class="data-table" id="appointments-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Paciente</th>
+                                    <th>Doctor</th>
+                                    <th>Fecha y Hora</th>
+                                    <th>Motivo</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appointments-table-body">
+                                <tr>
+                                    <td colspan="7" class="empty-state">Cargando citas...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- ====================== -->
+                <!-- SECCIÓN: PACIENTES     -->
+                <!-- ====================== -->
+                <section id="patients" class="view-section">
+                    <div class="section-header">
+                        <div>
+                            <h1>Base de Pacientes</h1>
+                            <p class="subtitle">Todos los pacientes registrados en el sistema.</p>
+                        </div>
+                    </div>
+                    <div class="glass table-wrapper">
+                        <table class="data-table" id="patients-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Teléfono / WhatsApp</th>
+                                    <th>Cédula</th>
+                                    <th>Estado Bot</th>
+                                </tr>
+                            </thead>
+                            <tbody id="patients-table-body">
+                                <tr>
+                                    <td colspan="5" class="empty-state">Cargando pacientes...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- ====================== -->
+                <!-- SECCIÓN: DOCTORES      -->
+                <!-- ====================== -->
+                <section id="doctors" class="view-section">
+                    <div class="section-header">
+                        <div>
+                            <h1>Gestión de Doctores</h1>
+                            <p class="subtitle">Administra el plantel médico de la clínica.</p>
+                        </div>
+                        <button class="btn btn-primary" onclick="openDoctorModal()">
+                            <i class="fa-solid fa-plus"></i> Agregar Doctor
+                        </button>
+                    </div>
+                    <div class="glass table-wrapper">
+                        <table class="data-table" id="doctors-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre Completo</th>
+                                    <th>Especialidad</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="doctors-table-body">
+                                <tr>
+                                    <td colspan="5" class="empty-state">Cargando doctores...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- ====================== -->
+                <!-- SECCIÓN: CONFIGURACIÓN -->
+                <!-- ====================== -->
+                <section id="settings" class="view-section">
+                    <div class="header-animate">
+                        <h1>Configuración del Sistema</h1>
+                        <p class="subtitle">Información técnica y parámetros de la clínica.</p>
+                    </div>
+
+                    <div class="settings-grid">
+                        <div class="glass settings-card">
+                            <div class="settings-card-header">
+                                <i class="fa-solid fa-server"></i>
+                                <h3>Conexión al Backend</h3>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="form-group">
+                                    <label>URL de la API</label>
+                                    <input type="text" id="settings-api-url" value="http://127.0.0.1:8000/api">
+                                </div>
+                                <button class="btn btn-primary" onclick="saveApiUrl()">
+                                    <i class="fa-solid fa-floppy-disk"></i> Guardar URL
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="glass settings-card">
+                            <div class="settings-card-header">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <h3>Información del Sistema</h3>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="info-row"><span class="info-label">Versión</span><span
+                                        class="info-value">1.0.0</span></div>
+                                <div class="info-row"><span class="info-label">Backend</span><span
+                                        class="info-value">FastAPI + SQLite</span></div>
+                                <div class="info-row"><span class="info-label">WhatsApp</span><span
+                                        class="info-value">YCloud API</span></div>
+                                <div class="info-row"><span class="info-label">IA</span><span class="info-value">OpenAI
+                                        GPT-3.5</span></div>
+                                <div class="info-row"><span class="info-label">Zona Horaria</span><span
+                                        class="info-value">America/La_Paz</span></div>
+                            </div>
+                        </div>
+
+                        <div class="glass settings-card">
+                            <div class="settings-card-header">
+                                <i class="fa-solid fa-key"></i>
+                                <h3>Variables de Entorno</h3>
+                            </div>
+                            <div class="settings-card-body">
+                                <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:12px;">Estas claves
+                                    deben configurarse en el servidor antes de iniciar el backend:</p>
+                                <div class="code-block"><code>export OPENAI_API_KEY="sk-..."</code></div>
+                                <div class="code-block"><code>export YCLOUD_API_KEY="..."</code></div>
+                                <div class="code-block"><code>export WHATSAPP_PHONE_NUMBER_ID="..."</code></div>
+                            </div>
+                        </div>
+
+                        <div class="glass settings-card">
+                            <div class="settings-card-header">
+                                <i class="fa-solid fa-database"></i>
+                                <h3>Base de Datos</h3>
+                            </div>
+                            <div class="settings-card-body">
+                                <div class="info-row"><span class="info-label">Motor</span><span
+                                        class="info-value">SQLite</span></div>
+                                <div class="info-row"><span class="info-label">Archivo</span><span
+                                        class="info-value">dental_clinic.db</span></div>
+                                <p style="color:var(--text-muted); font-size:0.85rem; margin-top:12px;">Para producción
+                                    con alto volumen, migrar a PostgreSQL cambiando la URL en <code>database.py</code>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- ========================== -->
+    <!-- MODALES                    -->
+    <!-- ========================== -->
+    <div id="modal-overlay" class="modal-overlay" onclick="closeAllModals()"></div>
+
+    <!-- Modal Nueva Cita -->
+    <div id="modal-new-appointment" class="modal">
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-calendar-plus" style="color:var(--accent-blue);margin-right:8px;"></i>Agendar
+                Nueva Cita</h3>
+            <button class="close-modal-btn" onclick="closeModal('modal-new-appointment')"><i
+                    class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <form id="form-new-appointment" onsubmit="submitNewAppointment(event)">
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>Nombre del Paciente</label>
+                        <input type="text" id="new-appt-patient-name" placeholder="Ej. Juan Pérez" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Celular (WhatsApp)</label>
+                        <input type="tel" id="new-appt-patient-phone" placeholder="Ej. +59160000000" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Doctor</label>
+                    <select id="new-appt-dentist" required>
+                        <option value="">Cargando doctores...</option>
+                    </select>
+                </div>
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>Inicio</label>
+                        <input type="datetime-local" id="new-appt-start" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Fin</label>
+                        <input type="datetime-local" id="new-appt-end" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Motivo</label>
+                    <input type="text" id="new-appt-desc" placeholder="Ej. Limpieza Dental" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary"
+                        onclick="closeModal('modal-new-appointment')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Agendar y
+                        Notificar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Reprogramar -->
+    <div id="modal-reschedule" class="modal">
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-clock-rotate-left"
+                    style="color:var(--accent-blue);margin-right:8px;"></i>Reprogramar Cita</h3>
+            <button class="close-modal-btn" onclick="closeModal('modal-reschedule')"><i
+                    class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <form id="form-reschedule" onsubmit="submitReschedule(event)">
+                <input type="hidden" id="resch-appt-id">
+                <p style="margin-bottom:16px; color:var(--text-muted);">Reprogramando cita de <strong
+                        id="resch-patient-name" style="color:var(--text-main);">...</strong></p>
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>Nueva Fecha Inicio</label>
+                        <input type="datetime-local" id="resch-appt-start" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nueva Fecha Fin</label>
+                        <input type="datetime-local" id="resch-appt-end" required>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary"
+                        onclick="closeModal('modal-reschedule')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Actualizar y
+                        Notificar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Agregar/Editar Doctor -->
+    <div id="modal-doctor" class="modal">
+        <div class="modal-header">
+            <h3 id="modal-doctor-title"><i class="fa-solid fa-user-doctor"
+                    style="color:var(--accent-blue);margin-right:8px;"></i>Agregar Doctor</h3>
+            <button class="close-modal-btn" onclick="closeModal('modal-doctor')"><i
+                    class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <form id="form-doctor" onsubmit="submitDoctorForm(event)">
+                <input type="hidden" id="doctor-edit-id">
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="doctor-name" placeholder="Ej. Dr. Carlos Ruiz" required>
+                </div>
+                <div class="form-group">
+                    <label>Especialidad</label>
+                    <input type="text" id="doctor-specialty" placeholder="Ej. Ortodoncia, Endodoncia, Cirugía" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary"
+                        onclick="closeModal('modal-doctor')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="doctor-submit-btn">
+                        <i class="fa-solid fa-floppy-disk"></i> Guardar Doctor
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./js/app.js"></script>
+</body>
+
+</html>

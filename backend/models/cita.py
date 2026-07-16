@@ -7,8 +7,7 @@ Contiene la clase Cita que representa una cita médica en el sistema.
 from datetime import date, time
 # Importación de función auxiliar para convertir hora a formato 12h
 from backend.models.horario_atencion import formato_12h
-
-
+           
 class Cita:
     """
     Clase que representa una cita médica en la clínica dental.
