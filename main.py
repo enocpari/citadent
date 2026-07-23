@@ -947,9 +947,8 @@ def menu_citas():
         print("3. Buscar cita")
         print("4. Citas de hoy")
         print("5. Citas de manana")
-        print("6. Horarios de atencion")
-        print("7. Gestionar Citas")
-        print("8. Volver al menu principal")
+        print("6. Gestionar Citas")
+        print("7. Volver al menu principal")
         opcion = input("Seleccione opcion: ")
         match opcion:
             case "1":
@@ -963,10 +962,8 @@ def menu_citas():
             case "5":
                 citas_manana(servicio_citas)
             case "6":
-                menu_horarios_atencion()
-            case "7":
                 menu_gestionar_citas()
-            case "8":
+            case "7":
                 break
             case _:
                 print("Opcion no valida")
@@ -1111,6 +1108,33 @@ def menu_horarios_atencion():
                 print("Opcion no valida")
 
 
+# menu de administrador ========================
+def menu_admin():
+    while True:
+        print("\n" + "="*60)
+        print("   SISTEMA DE GESTION - ADMINISTRADOR")
+        print("="*60)
+        print("1. Menu Pacientes")
+        print("2. Menu Dentistas")
+        print("3. Menu Citas")
+        print("4. Menu Horarios")
+        print("5. Cerrar sesion")
+        opcion = input("Seleccione opcion: ")
+        match opcion:
+            case "1":
+                menu_pacientes()
+            case "2":
+                menu_dentistas()
+            case "3":
+                menu_citas()
+            case "4":
+                menu_horarios_atencion()
+            case "5":
+                print("Sesion cerrada.")
+                break
+            case _:
+                print("Opcion no valida")
+
 # menu principal del sistema ========================
 def main():
     while True:
@@ -1139,30 +1163,6 @@ def main():
                 break
             case _:
                 print("Opcion no valida.")
-                
-# menu de administrador ========================
-def menu_admin():
-    while True:
-        print("\n" + "="*60)
-        print("   SISTEMA DE GESTION - ADMINISTRADOR")
-        print("="*60)
-        print("1. Menu Pacientes")
-        print("2. Menu Dentistas")
-        print("3. Menu Citas")
-        print("4. Cerrar sesion")
-        opcion = input("Seleccione opcion: ")
-        match opcion:
-            case "1":
-                menu_pacientes()
-            case "2":
-                menu_dentistas()
-            case "3":
-                menu_citas()
-            case "4":
-                print("Sesion cerrada.")
-                break
-            case _:
-                print("Opcion no valida")
  
 if __name__ == "__main__":
     main()
