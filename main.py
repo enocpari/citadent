@@ -1127,7 +1127,7 @@ def main():
             case "1":
                 clave = input("Ingrese la clave de administrador: ").strip()
                 if clave == "admin123":
-                    menu_principal()
+                    menu_admin()
                 else:
                     print("Clave incorrecta.")
             case "2":
@@ -1141,7 +1141,7 @@ def main():
                 print("Opcion no valida.")
                 
 # menu de administrador ========================
-def menu_principal():
+def menu_admin():
     while True:
         print("\n" + "="*60)
         print("   SISTEMA DE GESTION - ADMINISTRADOR")
